@@ -52,6 +52,15 @@
                 "default": "http://127.0.0.1"
             },
             {
+                "name": "admin",
+                "type": "user",
+                "ask": {
+                    "en": "Choose an admin user",
+                    "fr": "Choisissez l'administrateur"
+                },
+                "example": "johndoe"
+            },
+            {
                 "name": "redirect_type",
                 "ask": {
                     "en": "Redirect type",

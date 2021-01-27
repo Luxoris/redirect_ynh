@@ -15,6 +15,7 @@ source /usr/share/yunohost/helpers
 
 # Retrieve arguments
 app=$YNH_APP_INSTANCE_NAME
+admin=$(ynh_app_setting_get --app=$app --key=admin)
 domain=$(ynh_app_setting_get "$app" domain)
 path_url=$(ynh_app_setting_get "$app" path)
 redirect_type=$(ynh_app_setting_get "$app" redirect_type)
@@ -117,5 +118,9 @@ then
 	ynh_app_setting_set "$app" unprotected_uris "/"
 fi
 
+# Create the admin permission if needed
+if ! ynh_permission_exists --permission "admin"; then
+	ynh_permission_create --permission "admin" --allowed $admin
+fi
 # Reload Nginx and regenerate SSOwat conf
 systemctl reload nginx

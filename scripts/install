@@ -21,6 +21,7 @@ ynh_abort_if_errors
 
 # Retrieve arguments
 app=$YNH_APP_INSTANCE_NAME
+admin=$YNH_APP_ARG_ADMIN
 domain=$YNH_APP_ARG_DOMAIN
 path_url=$YNH_APP_ARG_PATH
 redirect_type=$YNH_APP_ARG_REDIRECT_TYPE
@@ -70,6 +71,9 @@ then
 	# unprotected_uris allows SSO credentials to be passed anyway.
 	ynh_app_setting_set "$app" unprotected_uris "/"
 fi
+
+# Only the admin can access the admin panel of the app (if the app has an admin panel)
+ynh_permission_create --permission "admin" --allowed $admin
 
 # Reload Nginx and regenerate SSOwat conf
 systemctl reload nginx
